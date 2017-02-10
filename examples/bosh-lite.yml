@@ -1,0 +1,48 @@
+---
+name: ulimit
+
+releases:
+- name: ulimit
+  version: latest
+
+stemcells:
+- alias: default-ubuntu
+  os: ubuntu-trusty
+  version: latest
+- alias: default-centos
+  os: centos-7
+  version: latest
+
+instance_groups:
+- name: ulimit-ubuntu
+  instances: 1
+  networks:
+  - name: default
+  vm_type: default
+  stemcell: default-ubuntu
+  jobs:
+  - release: ulimit
+    name: ulimit
+  properties:
+    nofile:
+      soft: 16384
+      hard: 32768
+- name: ulimit-centos
+  instances: 1
+  networks:
+  - name: default
+  vm_type: default
+  stemcell: default-centos
+  jobs:
+  - release: ulimit
+    name: ulimit
+  properties:
+    nofile:
+      soft: 16384
+      hard: 32768
+
+update:
+  canaries: 1
+  max_in_flight: 10
+  canary_watch_time: 1000-30000
+  update_watch_time: 1000-30000

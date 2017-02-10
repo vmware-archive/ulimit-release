@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -ex
+
+cp -f /var/vcap/jobs/ulimit/etc/limits.conf /etc/security/limits.d/62-ulimit.conf
+
+monit_pid=$( ps -e | grep monit | awk '{print $1}' )
+
+if [ ! -z "$monit_pid" ]; then
+  /var/vcap/packages/pivotal_prlimit/bin/pivotal_prlimit -n $monit_pid  <%= p("nofile.soft") %> <%= p("nofile.hard") %>
+fi

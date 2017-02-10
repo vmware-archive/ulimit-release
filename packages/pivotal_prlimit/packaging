@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e -x
+
+mkdir ${BOSH_INSTALL_TARGET}/bin
+gcc -o ${BOSH_INSTALL_TARGET}/bin/pivotal_prlimit pivotal_prlimit/pivotal_prlimit.c
