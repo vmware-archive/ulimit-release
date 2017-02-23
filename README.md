@@ -31,3 +31,9 @@ Fixes: `Accept error: accept tcp [::]:80: accept4: too many open files`.
 Defaults to 16384/16384 soft/hard limit for all users.
 
 This was tested on Ubuntu and CentOS stemcells.
+
+This release has 2 components:
+
+1. A [pre-start](https://bosh.io/docs/pre-start.html) executable (`pivotal_prlimit`, a small C program which uses [prlimit(2)](https://linux.die.net/man/2/prlimit)) which modifies the ulimit of the running `monit` process. `monit`, as it forks sub-processes (i.e. as it starts jobs), will pass along the updated ulimits (max number of open files). This makes sure the ulimit is set on initial deployment.
+
+2. A template which creates `/etc/security/limits.d/62-ulimit.conf` which sets the ulimit on reboot (pre-start scripts are not run on reboot).
