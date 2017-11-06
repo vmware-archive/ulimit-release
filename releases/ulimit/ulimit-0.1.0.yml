@@ -1,0 +1,19 @@
+name: ulimit
+version: 0.1.0
+commit_hash: 6edfec6
+uncommitted_changes: false
+jobs:
+- name: ulimit
+  version: b2cac2b9f7946c1632f0892cdeb4aeb02ce6c639
+  fingerprint: b2cac2b9f7946c1632f0892cdeb4aeb02ce6c639
+  sha1: 107994b525e0d1e0701c6e26c242f080fd05e614
+packages:
+- name: pivotal_prlimit
+  version: 6088a6e66af15ff73dbd41be04cd28ab631daede
+  fingerprint: 6088a6e66af15ff73dbd41be04cd28ab631daede
+  sha1: 95721b346ca5ba62f3509221f811d94f772b58a6
+  dependencies: []
+license:
+  version: 879fcb695a3f80ae6e7b180e86e1c4b2c3d58a00
+  fingerprint: 879fcb695a3f80ae6e7b180e86e1c4b2c3d58a00
+  sha1: 834b0483e161cb215f2abcba2ddffc7a43fd3faf
