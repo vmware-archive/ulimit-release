@@ -2,6 +2,10 @@
 
 set -ex
 
+LOG_DIR=/var/vcap/sys/log/ulimit
+
+chown -R vcap:vcap $LOG_DIR
+
 cp -f /var/vcap/jobs/ulimit/etc/limits.conf /etc/security/limits.d/62-ulimit.conf
 
 monit_pid=$( ps -e | grep monit | awk '{print $1}' )
