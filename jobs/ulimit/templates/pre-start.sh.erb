@@ -2,10 +2,15 @@
 
 set -ex
 
-cp -f /var/vcap/jobs/ulimit/etc/limits.conf /etc/security/limits.d/62-ulimit.conf
+echo "DefaultLimitNOFILE=<%= p("nofile.soft") %>:<%= p("nofile.hard") %>" >> /etc/systemd/system.conf
+systemctl daemon-reload
 
-monit_pid=$( ps -e | grep monit | awk '{print $1}' )
+pid=$(ps -e | grep monit | awk '{print $1}')
 
-if [ ! -z "$monit_pid" ]; then
-  /var/vcap/packages/pivotal_prlimit/bin/pivotal_prlimit -n $monit_pid  <%= p("nofile.soft") %> <%= p("nofile.hard") %>
-fi
+while [[ $pid -gt 1 ]]; do
+  if [ ! -z "$pid" ]; then
+    /var/vcap/packages/pivotal_prlimit/bin/pivotal_prlimit -n $pid <%= p("nofile.soft") %> <%= p("nofile.hard") %>
+  fi
+
+  pid=$(ps -o ppid= -p $pid)
+done
